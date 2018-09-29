@@ -4,7 +4,7 @@ const logger = require("morgan");
 const exphbs = require("express-handlebars");
 // const axios = require("axios");
 // const cheerio = require("cheerio");
-const db = require("./models");
+// const db = require("./models");
 const PORT = process.env.PORT || 3000;
 const app = express();
 
@@ -24,6 +24,12 @@ app.engine(
   })
 );
 app.set("view engine", "handlebars");
+
+console.log('---------- 28 ',app);
+
+app.get("/blah", function(req, res) {
+  res.render("index", { title: "blah"});
+});
 
 // Routes
 require("./routes/apiRoutes")(app);

@@ -4,8 +4,12 @@ var db = require("../models");
 module.exports = function (app) {
 
   // Load Index page
-  app.get("/", function (req, res) {
+  app.get("/", function(req, res) {
     res.render("index");
+  });
+
+  app.get('/saved', function(req, res) {
+    res.render("save");
   });
 
   // //Load Create Page

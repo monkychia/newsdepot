@@ -1,27 +1,32 @@
 $(document).ready(function() {
 
-
-  // const displayArticles = (data) => 
-  //   data.forEach(article => 
-  //     $("#articles").append(`<p data-id=${article._id} class="article">${article.title}<br />${article.link}</p>`));
-  
-  // scrapeNewArticles();
-
-  //});
-
   $(document).on('click', '.scrape', function() {
+    $.getJSON("/scrape", function(data) {
+      data.forEach(article => {
+        $("#articles").append(
+          `<p data-id=${article._id} class="article">${article.title}<br />${article.link}</p>
+          <button data-id=${article._id} id="delete">Save Article</button>`);
+      })
+    });
+  });
 
-    console.log('--- 13 scrape');
-    $.get("/scrape", function(req, res) {
-      console.log(res);
+  // Listener to mark the article as saved
+  $(document).on('click', '#saveArticle', function() {
+    let thisId = $(this).attr("data-id");
+    let toggle = true;
+    $.ajax({
+      url: `/article/${thisId}/${toggle}`,
+      type: 'PUT',
+      data: {},
+      success: function(data) {
+          console.log('-------- 21 data ', data);
+      }
     });
 
-    // scrapeNewArticles();
-    // $.getJSON("/articles", function(data) {
-    //   data.forEach(article => {
-    //     $("#articles").append(`<p data-id=${article._id} class="article">${article.title}<br />${article.link}</p>`);
-    //   })
-    // });  
+  });
+
+  $(document).on("click", ".saved", function() {
+    window.location.replace("/saved");
   });
 
   // Whenever someone clicks a p tag

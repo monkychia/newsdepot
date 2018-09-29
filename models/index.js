@@ -9,7 +9,11 @@ const config = require(__dirname + "/../config/config.json")[env];
 const db = {};
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/newsdepot", { useNewUrlParser: true });
+
+let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/newsdepot";
+mongoose.Promise = Promise;
+
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 module.exports = {
   Article: require("./Article"),
