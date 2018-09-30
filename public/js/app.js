@@ -1,8 +1,5 @@
 $(document).ready(function() {
   $.getJSON("/scrape", function(data) {
-
-    console.log(data);
-
     data.forEach(article => {
       $("#articles").append(
         `<div class="panel panel-success" data-id=${article._id}>
@@ -132,11 +129,3 @@ $(document).ready(function() {
     });
   });
 });
-
-scrapeNewArticles = () => {
-  // Grab the articles as a json
-  $.getJSON("/scrape", (data) => {}
-  // data.forEach(article => 
-  //   $("#articles").append(`<p data-id=${article._id} class="article">${article.title}<br />${article.link}</p>`)));
-);
-}
