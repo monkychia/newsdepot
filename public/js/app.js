@@ -1,5 +1,8 @@
 $(document).ready(function() {
   $.getJSON("/scrape", function(data) {
+
+    console.log(data);
+
     data.forEach(article => {
       $("#articles").append(
         `<div class="panel panel-success" data-id=${article._id}>
