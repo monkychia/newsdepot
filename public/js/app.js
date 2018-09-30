@@ -1,14 +1,64 @@
 $(document).ready(function() {
+  $.getJSON("/scrape", function(data) {
+    data.forEach(article => {
+      $("#articles").append(
+        `<div class="panel panel-success" data-id=${article._id}>
+          <div class="panel-heading data-id=${article._id} class="article">
+            <table>
+              <tr class="table-row">
+                <td class="col col-md-8 col-sm-12 col-xs-12"><h4>${article.title}</h4></td>
+                <td class="col col-md-4 col-sm-12 col-xs-12">
+                  <button class="btn btn-default" data-id=${article._id} id="saveArticle">Save Article</button>
+                </td> 
+              </tr>
+            </table>
+          </div>
+          <div class="panel-body">
+            <a href=${article.link}>${article.link}</a>
+          </div>
+        </div>`
+      );
+    })
+  });
 
   $(document).on('click', '.scrape', function() {
+    $(".panel").remove();
+    // want to look for only new ones and display
     $.getJSON("/scrape", function(data) {
       data.forEach(article => {
         $("#articles").append(
-          `<p data-id=${article._id} class="article">${article.title}<br />${article.link}</p>
-          <button data-id=${article._id} id="delete">Save Article</button>`);
+          `<div class="panel panel-success" data-id=${article._id}>
+            <div class="panel-heading data-id=${article._id} class="article">
+              <table>
+                <tr class="table-row">
+                  <td class="col col-md-8 col-sm-12 col-xs-12"><h4>${article.title}</h4></td>
+                  <td class="col col-md-4 col-sm-12 col-xs-12">
+                    <button class="btn btn-default" data-id=${article._id} id="saveArticle">Save Article</button>
+                  </td> 
+                </tr>
+              </table>
+            </div>
+            <div class="panel-body">
+              <a href=${article.link}>${article.link}</a>
+            </div>
+          </div>`
+        );
       })
     });
   });
+
+  $(document).on('click', '#delete', function() {
+    let thisId = $(this).attr("data-id");
+    let toggle = false;
+    $.ajax({
+      url: `/article/${thisId}/${toggle}`,
+      type: 'PUT',
+      data: {},
+      success: function(data) {
+        window.location.reload();
+      }
+    });
+  })
 
   // Listener to mark the article as saved
   $(document).on('click', '#saveArticle', function() {
@@ -18,11 +68,10 @@ $(document).ready(function() {
       url: `/article/${thisId}/${toggle}`,
       type: 'PUT',
       data: {},
-      success: function(data) {
-          console.log('-------- 21 data ', data);
-      }
+      success: function(data) {}
     });
 
+    $(this).parent().parent().parent().parent().parent().parent().remove();
   });
 
   $(document).on("click", ".saved", function() {
@@ -39,7 +88,7 @@ $(document).ready(function() {
         (`<h2>${data.title}</h2>
           <input id="titleinput" name="title">
           <textarea id='bodyinput' name='body'></textarea>
-          <button data-id=${data._id} id='savenote'>Save Note</button>`);
+          <button class="btn btn-default" data-id=${data._id} id='savenote'>Save Note</button>`);
 
         if (data.note) {
           $("#titleinput").val(data.note.title);
@@ -57,7 +106,6 @@ $(document).ready(function() {
 
     $.post(`/articles/${thisId}`, payload)
       .then(function(res) {
-        // console.log('----------- 46 ',res);
         $("#notes").empty();
       });
 
@@ -70,8 +118,9 @@ $(document).ready(function() {
       type: "DELETE",
       url: "/articles",
       success: function(data) {
-        console.log(data);
-        $(".article").remove();
+        $(".panel").remove();
+        $("#displaySavedArticles").remove();
+        $("#notes").remove();
       },
       error: function(data) {
         console.log('Error:', data);

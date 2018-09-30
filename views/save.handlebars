@@ -1,13 +1,31 @@
 <header>
-    <div class='logo'>Logo with a link to home</div>
-    <div>a link to home page</div>
-    <button class="scrape">Scrape New Articles</button>
-    <button class="clear">Clear Articles</button>
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">News Depot</a>
+            </div>
+        
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <button class="clear btn btn-default navbar-btn btn-info">Clear Articles</button>
+            </div>
+        </div>
+    </nav>
 </header>
-<h1>Saved Articles</h1>
+<div class="jumbotron hero">
+  <h1>News Depot</h1>
+  <h2>Echo JS News for Web Developers</h2>
+</div>
+
 <div class="container">
     <div id="displaySavedArticles"></div>
+    <div id="notes"></div>
 </div>
 <footer>
-    this is footer
+    Echo JS News Depot
 </footer>

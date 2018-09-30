@@ -1,12 +1,10 @@
-body { 
+/* body { 
   background-color: #F2F6D0;
-}
+} */
 
-#wrapper {
-  width: 960px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 5%;
+.hero {
+  text-align: center;
+  background-image: url("../../images/newspaper.jpg");
 }
 
 #articles {
@@ -17,13 +15,12 @@ body {
 }
 
 #notes {
-  width: 30%;
+  width: 100%;
 }
 
 textarea, input {
   display: block;
   width: 100%;
-  background-color: #FCF5C7;
 }
 
 input {
@@ -31,7 +28,29 @@ input {
   font-size: 24px;
 }
 
+#titleinput, #bodyinput {
+  color: dodgerblue;
+}
+
 textarea {
-  height: 200px;
+  height: 150px;
   font-size: 18px;
+}
+
+#savenote {
+  margin-top: 10px;
+}
+
+table {
+  width: 100%;
+}
+
+footer {
+    margin-top: 20px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #5bc0de;
+    color: white;
+    text-align: center;
 }
